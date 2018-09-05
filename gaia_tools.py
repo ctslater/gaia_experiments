@@ -97,5 +97,6 @@ def healpix_hist(input_df, NSIDE=64, groupby=[],
 
 
 def bin_column(start, stop, bins, data):
+    filter = ((data >= start) & (data < stop)).astype("integer")
     bin_size = (stop - start)/bins
-    return sparkfunc.floor((data - start)/bin_size)
+    return filter * sparkfunc.floor((data - start)/bin_size)
